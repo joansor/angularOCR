@@ -1,26 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {Observable, interval} from 'rxjs';
+import { AppareilService } from './services/appareil.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    isAuth = false;
-    appareilOne = 'Machine à laver';
-    appareilTwo = 'Frigo';
-    appareilThree = 'Ordinateur';
-  
-    constructor() {
-    setTimeout(
+  constructor() { }
+
+  secondes: number | undefined;
+
+  ngOnInit() {
+    const counter = interval(1000).subscribe(
+      (value: any) => {
+        this.secondes = value;
+      },
+      (error: any) => {
+        console.log('Uh-oh, an error occurred! : ' + error);
+      },
       () => {
-        this.isAuth = true;
-      }, 4000
+        console.log('Observable complete!');
+      }
     );
-  }
-
-  onAllumer(): void {
-    console.log('On allume tout !');
   }
 }
