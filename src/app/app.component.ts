@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable, interval} from 'rxjs';
-import { AppareilService } from './services/appareil.service';
 
 @Component({
   selector: 'app-root',

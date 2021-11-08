@@ -21,7 +21,7 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
   appareils: any[] | undefined;
   appareilSubscription?: Subscription;
 
-  constructor(private appareilService: AppareilService) {
+  constructor(private appareilService?: AppareilService) {
     setTimeout(
       () => {
         this.isAuth = true;
@@ -30,19 +30,19 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.appareilSubscription = this.appareilService.appareilsSubject.subscribe(
+    this.appareilSubscription = this.appareilService?.appareilsSubject.subscribe(
       (appareils: any[]) => {
         this.appareils = appareils;
       }
     );
-    this.appareilService.emitAppareilSubject();
+    this.appareilService?.emitAppareilSubject();
   }
   onAllumer(): void {
-    this.appareilService.switchOnAll();
+    this.appareilService?.switchOnAll();
   }
   onEteindre(){
     if (confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
-      this.appareilService.switchOffAll();
+      this.appareilService?.switchOffAll();
     }
   }
   ngOnDestroy() {
