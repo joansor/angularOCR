@@ -18,10 +18,10 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
       }, 2000
     );
   });
-  appareils: any[] | undefined;
-  appareilSubscription?: Subscription;
+  appareils!: any[];
+  appareilSubscription!: Subscription;
 
-  constructor(private appareilService?: AppareilService) {
+  constructor(private appareilService: AppareilService) {
     setTimeout(
       () => {
         this.isAuth = true;
@@ -35,17 +35,26 @@ export class AppareilViewComponent implements OnInit, OnDestroy {
         this.appareils = appareils;
       }
     );
-    this.appareilService?.emitAppareilSubject();
+    this.appareilService.emitAppareilSubject();
   }
   onAllumer(): void {
-    this.appareilService?.switchOnAll();
+    this.appareilService.switchOnAll();
   }
-  onEteindre(){
+  onEteindre() {
     if (confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
-      this.appareilService?.switchOffAll();
+      this.appareilService.switchOffAll();
     }
   }
+  onSave() {
+    this.appareilService.saveAppareilsToServer();
+  }
+  onFetch() {
+    this.appareilService.getAppareilsFromServer().subscribe((data : any) => {
+      this.appareils = data;
+      this.appareilService.emitAppareilSubject;
+    });
+  }
   ngOnDestroy() {
-    this.appareilSubscription?.unsubscribe();
+    this.appareilSubscription.unsubscribe();
   }
 }
