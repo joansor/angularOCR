@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppareilService } from '../services/appareil.service';
 
+
 @Component({
   selector: 'app-edit-appareil',
   templateUrl: './edit-appareil.component.html',
@@ -12,7 +13,7 @@ export class EditAppareilComponent implements OnInit {
   defaultOnOff = 'éteint';
 
   constructor(private appareilService?: AppareilService,
-              private router?: Router) { }
+    private router?: Router) { }
 
   ngOnInit() {
   }
@@ -24,3 +25,4 @@ export class EditAppareilComponent implements OnInit {
     this.router?.navigate(['/appareils']);
   }
 }
+
